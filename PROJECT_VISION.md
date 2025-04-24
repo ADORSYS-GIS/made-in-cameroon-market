@@ -1,9 +1,9 @@
 # Made in Cameroon Marketplace - Project Vision and Goals
 
-## 🌍 Vision Statement
+## 🌍 Vision
 We're building more than just an online store we're building a **digital economy** rooted in **local value, trust, and cultural heritage**. By creating space for Cameroonian producers to thrive online, we're fostering sustainable economic growth and tech empowerment from the ground up.
 
-## 1. Identify the Problem
+## 1. Problem
 - Local artisans, farmers, and small businesses in Cameroon struggle to compete with large foreign brands in online marketplaces
 - Limited digital presence and e-commerce opportunities for local producers
 - Lack of dedicated platforms that focus exclusively on locally made products
@@ -18,7 +18,7 @@ We're building more than just an online store we're building a **digital economy
 - **Payment Accessibility**: Integrates with widely used local payment methods (MTN Mobile Money, Orange Money)
 - **Community Building**: Fosters a community-driven commerce ecosystem
 
-## 3. Define the Goal
+## 3. Goal
 
 ### Primary Objectives
 - Create a dedicated digital marketplace exclusively for locally made Cameroonian products
