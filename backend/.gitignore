@@ -1,0 +1,7 @@
+.debug/
+target/
+.cargo/
+.dockerignore
+.env
+test/
+*.tgz
