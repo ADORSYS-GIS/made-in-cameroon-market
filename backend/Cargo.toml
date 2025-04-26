@@ -4,3 +4,19 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+actix-web = "4.3.1"
+actix-cors = "0.6.4"
+serde = { version = "1.0.163", features = ["derive"] }
+serde_json = "1.0.96"
+tokio = { version = "1.28.1", features = ["full"] }
+chrono = { version = "0.4.26", features = ["serde"] }
+uuid = { version = "1.3.3", features = ["v4", "serde"] }
+env_logger = "0.10.0"
+log = "0.4.17"
+dotenv = "0.15.0"
+jsonwebtoken = "8.3.0"
+argon2 = "0.5.0"
+rand_core = { version = "0.6.4", features = ["std"] }
+sqlx = { version = "0.6.3", features = ["runtime-tokio-native-tls", "postgres", "uuid", "chrono"] }
+thiserror = "1.0.40"
+futures = "0.3"
