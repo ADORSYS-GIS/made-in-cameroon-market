@@ -1,6 +1,17 @@
 [package]
 name = "backend"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
-[dependencies]
+[[bin]]
+name = "made-in-cameroon-market"
+path = "crates/api/src/main.rs"
+
+
+[workspace]
+members = [
+    "crates/api",
+    "crates/cache",
+    "crates/sync",
+    "crates/metrics",
+]
