@@ -31,6 +31,8 @@ jobs:
         run: cargo fmt --all --check
 
   cargo-build:
+    env:
+      RUSTFLAGS="-D warnings"
     name: Cargo Build
     runs-on: ubuntu-latest
     needs: format-check
