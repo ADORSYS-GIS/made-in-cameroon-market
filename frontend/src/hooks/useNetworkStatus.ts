@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // Define a type that extends Navigator with connection types
 interface NavigatorConnection extends Navigator {
@@ -8,9 +8,15 @@ interface NavigatorConnection extends Navigator {
 }
 
 interface NetworkInformation extends EventTarget {
-  readonly effectiveType?: 'slow-2g' | '2g' | '3g' | '4g';
-  addEventListener(type: 'change', listener: EventListenerOrEventListenerObject): void;
-  removeEventListener(type: 'change', listener: EventListenerOrEventListenerObject): void;
+  readonly effectiveType?: "slow-2g" | "2g" | "3g" | "4g";
+  addEventListener(
+    type: "change",
+    listener: EventListenerOrEventListenerObject,
+  ): void;
+  removeEventListener(
+    type: "change",
+    listener: EventListenerOrEventListenerObject,
+  ): void;
 }
 
 // Now type navigator properly without 'any'
@@ -21,7 +27,9 @@ const getConnection = (): NetworkInformation | undefined => {
 
 export function useNetworkStatus() {
   const [online, setOnline] = useState<boolean>(navigator.onLine);
-  const [effectiveType, setEffectiveType] = useState<string>(getConnection()?.effectiveType ?? '4g');
+  const [effectiveType, setEffectiveType] = useState<string>(
+    getConnection()?.effectiveType ?? "4g",
+  );
 
   useEffect(() => {
     const onOnline = () => setOnline(true);
@@ -35,17 +43,17 @@ export function useNetworkStatus() {
       }
     };
 
-    window.addEventListener('online', onOnline);
-    window.addEventListener('offline', onOffline);
+    window.addEventListener("online", onOnline);
+    window.addEventListener("offline", onOffline);
 
     if (connection) {
-      connection.addEventListener('change', updateConnection);
+      connection.addEventListener("change", updateConnection);
     }
 
     return () => {
-      window.removeEventListener('online', onOnline);
-      window.removeEventListener('offline', onOffline);
-      connection?.removeEventListener('change', updateConnection);
+      window.removeEventListener("online", onOnline);
+      window.removeEventListener("offline", onOffline);
+      connection?.removeEventListener("change", updateConnection);
     };
   }, []);
 

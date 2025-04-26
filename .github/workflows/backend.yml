@@ -34,19 +34,23 @@ jobs:
           source $HOME/.cargo/env
 
       - name: Cargo Format Check
+        working-directory: backend
         run: cargo fmt -- --check
 
       - name: Clippy Linting
+        working-directory: backend
         run: cargo clippy -- -D warnings
 
       - name: Cargo Tests
+        working-directory: backend
         run: cargo test --workspace -- --nocapture
 
       - name: Cargo Build (Release)
+        working-directory: backend
         run: cargo build --release
 
       - name: Upload Backend Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-release
           path: backend/target/release/made-in-cameroon-market

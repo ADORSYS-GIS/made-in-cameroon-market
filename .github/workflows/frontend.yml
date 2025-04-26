@@ -34,7 +34,13 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
+        working-directory: frontend
         run: npm ci
 
+      - name: Prettier Check
+        working-directory: frontend
+        run: npm run prettier:check
+
       - name: Build Frontend
+        working-directory: frontend
         run: npm run build
