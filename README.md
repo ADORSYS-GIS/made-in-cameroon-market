@@ -1,57 +1,59 @@
-# made-in-cameroon-marketplace
-A platform just for locally made products, where artisans, farmers, and small businesses can sell their goods without competing with big foreign brands. Payment integration with local mobile money (MTN, Orange) would make it easier for people to buy.
+# Made in Cameroon Marketplace
 
-
----
-
-## 🛍️ Made in Cameroon Marketplace
-
-**Made in Cameroon Marketplace** is a digital platform that empowers **local artisans, farmers, and small businesses** in Cameroon by giving them a space to sell their **locally made products** online. The goal is to promote economic self-reliance, cultural pride, and community-driven commerce, without forcing local vendors to compete with large foreign brands.
-
-### 🎯 Project Goals
-
-- **Support local producers** by providing them a dedicated platform to showcase and sell their goods.
-- **Prioritize local commerce** by excluding large foreign brands from the platform.
-- **Enable easy payments** through integration with local mobile money services like **MTN Mobile Money** and **Orange Money**.
-- **Promote digital inclusion** and empower underrepresented communities through technology.
+**Made in Cameroon Marketplace** is a digital platform dedicated to promoting and supporting locally made products in Cameroon. This platform empowers artisans, farmers, and small businesses by providing a marketplace where they can showcase and sell their goods without competing with large foreign brands. It integrates local mobile money payment solutions to ensure accessibility and convenience for both vendors and buyers.
 
 ---
 
-## 🧰 Tech Stack
+## Project Objectives
 
-### 🧃 T3 Stack (Frontend Foundation)
+The **Made in Cameroon Marketplace** is built with a clear mission to:
 
-You're using the **T3 Stack** to build the frontend. It’s a modern and opinionated stack that includes:
+- **Empower local producers** by giving them an exclusive platform to reach a wider audience.
+- **Promote local commerce** by focusing solely on Cameroonian products and excluding large foreign brands.
+- **Simplify payments** with seamless integration of local payment systems like **MTN Mobile Money** and **Orange Money**.
+- **Foster digital inclusion** by leveraging technology to uplift underrepresented communities and drive economic self-reliance.
 
-- **Next.js** – The core React framework for building the frontend.
-- **TypeScript** – Adds types to JavaScript so you can catch errors early.
-- **Tailwind CSS** – Makes styling easier with utility classes.
-- **tRPC** – A tool that lets the frontend call backend functions directly *with full type safety* (super cool!).
-- **shadcn/ui** – A collection of beautifully styled and accessible UI components.
+---
 
-> ✨ 
+## Technology Stack
 
-### 🧠 Backend (Rust-powered)
+### Frontend
 
-- **Rust** – A high-performance and safe backend language.
-- **Axum** (or **Actix-web**) – Rust web frameworks to handle backend API requests.
-- **PostgreSQL** – To store user data, product listings, and orders.
-- **SQLx** or **Diesel** – Rust database tools to communicate with Postgres.
+The frontend is developed using a modern and efficient stack tailored for performance and scalability:
 
-### 💸 Payment Integration
+- **Next.js** – A React-based framework for building dynamic and robust user interfaces.
+- **TypeScript** – Ensures type safety and reduces runtime errors.
+- **Tailwind CSS** – A utility-first CSS framework for efficient and consistent styling.
+- **tRPC** – Facilitates type-safe communication between the frontend and backend.
+- **shadcn/ui** – Provides accessible, pre-designed UI components.
+
+### Backend
+
+The backend is designed for performance, security, and scalability:
+
+- **Rust** – A modern systems programming language known for safety and speed.
+- **Axum** – Framework for building high-performance web APIs in Rust.
+- **PostgreSQL** – A robust relational database for managing user data, product listings, and transactions.
+- **SQLx** or **Diesel** – Rust-based database tools for efficient database interactions.
+
+### Payment Integration
+
+The platform integrates the following APIs to streamline payments:
 
 - **MTN Mobile Money API**
 - **Orange Money API**
 
-### 🛠️ Dev Tools
+### Development Tools
 
-- **VSCode** – Code editor
-- **GitHub** – For source control, issues, and Kanban boards
-- **Docker** – For containerized development/deployment
-- **Zsh** – Your shell for terminal tasks
+- **VSCode** – Primary code editor.
+- **GitHub** – For version control, issue tracking, and project management.
+- **Docker** – Ensures consistent development and deployment environments.
+- **Zsh** – Command-line interface for enhanced productivity.
 
 ---
 
-## 🌍 Vision
+## Vision
 
-We’re building more than just an online store—we’re building a **digital economy** rooted in **local value, trust, and cultural heritage**. By creating space for Cameroonian producers to thrive online, we’re fostering sustainable economic growth and tech empowerment from the ground up.
+The **Made in Cameroon Marketplace** is more than an e-commerce platform; it is a catalyst for building a digital economy rooted in **local heritage, cultural pride, and economic sustainability**. By creating a space where local producers can thrive, we aim to foster a new era of community-driven commerce that uplifts Cameroonian businesses and contributes to national economic growth.
+
+---
