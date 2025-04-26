@@ -55,4 +55,3 @@ You're using the **T3 Stack** to build the frontend. It’s a modern and opinion
 ## 🌍 Vision
 
 We’re building more than just an online store—we’re building a **digital economy** rooted in **local value, trust, and cultural heritage**. By creating space for Cameroonian producers to thrive online, we’re fostering sustainable economic growth and tech empowerment from the ground up.
----
