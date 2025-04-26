@@ -1,4 +1,4 @@
-use eid_server::{
+use marketplace_cmr::{
     config::Config,
     domain::marketplace::service::Service,
     server::{Server, ServerConfig},

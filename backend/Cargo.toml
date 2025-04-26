@@ -1,5 +1,5 @@
 [package]
-name = "eid-server"
+name = "marketplace-cmr"
 version = "0.1.0"
 edition = "2024"
 
@@ -7,7 +7,6 @@ edition = "2024"
 # Web framework
 hyper = "1.6"
 axum = "0.8"
-tower = "0.5"
 tower-http = { version = "0.6", features = ["trace", "cors"] }
 
 # Async runtime
