@@ -2,6 +2,8 @@ use sqlx::{postgres::PgPool, Error};
 use uuid::Uuid;
 use crate::models::admin::Admin;
 
+pub mod vendor;
+
 pub async fn init_db(pool: &PgPool) -> Result<(), Error> {
     // Create admins table if it doesn't exist
     sqlx::query(
@@ -16,6 +18,26 @@ pub async fn init_db(pool: &PgPool) -> Result<(), Error> {
     )
     .execute(pool)
     .await?;
+    
+    // Create audit logs table
+    sqlx::query(
+        r#"
+        CREATE TABLE IF NOT EXISTS audit_logs (
+            id UUID PRIMARY KEY,
+            entity_type VARCHAR NOT NULL,
+            entity_id UUID NOT NULL,
+            action_type VARCHAR NOT NULL,
+            admin_id UUID NOT NULL,
+            details JSONB NOT NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+        "#,
+    )
+    .execute(pool)
+    .await?;
+    
+    // Initialize vendor tables
+    vendor::init_vendor_tables(pool).await?;
     
     Ok(())
 }
@@ -60,5 +82,3 @@ pub async fn create_admin(
     .fetch_one(pool)
     .await
 }
-
-// src/middleware/auth.rs

@@ -1,5 +1,5 @@
 use actix_cors::Cors;
-use actix_web::{middleware::Logger, web, App, HttpServer};  // Import Logger directly
+use actix_web::{middleware::Logger, web, App, HttpServer};
 use dotenv::dotenv;
 use sqlx::postgres::PgPoolOptions;
 use std::env;
@@ -39,7 +39,7 @@ async fn main() -> std::io::Result<()> {
             .max_age(3600);
 
         App::new()
-            .wrap(Logger::default())  // Use Logger directly
+            .wrap(Logger::default())
             .wrap(cors)
             .app_data(web::Data::new(db_pool.clone()))
             .app_data(web::Data::new(config::Config::from_env()))
