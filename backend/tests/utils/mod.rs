@@ -1,4 +1,4 @@
-use eid_server::{
+use marketplace_cmr::{
     config::Config,
     domain::marketplace::ports::EidService,
     server::{Server, ServerConfig},
@@ -17,14 +17,14 @@ pub async fn spawn_server() -> String {
         config.server.port = 0;
         config
     };
-    let eid_service = MockService;
+    let marketplace_service = MockService;
 
     let server_config = ServerConfig {
         host: &config.server.host,
         port: config.server.port,
     };
 
-    let server = Server::new(eid_service, server_config.clone())
+    let server = Server::new(marketplace_service, server_config.clone())
         .await
         .unwrap();
 

@@ -25,7 +25,7 @@ pub struct ServerConfig<'a> {
 
 #[derive(Debug, Clone)]
 struct AppState<S: EidService> {
-    _eid_service: Arc<S>,
+    _marketplace_service: Arc<S>,
 }
 
 pub struct Server {
@@ -36,7 +36,7 @@ pub struct Server {
 impl Server {
     /// Creates a new HTTP server with the given service and configuration.
     pub async fn new(
-        eid_service: impl EidService,
+        marketplace_service: impl EidService,
         config: ServerConfig<'_>,
     ) -> color_eyre::Result<Self> {
         // Initialize the tracing layer to log HTTP requests.
@@ -60,7 +60,7 @@ impl Server {
 
         // This will encapsulate dependencies need to execute the business logic
         let state = AppState {
-            _eid_service: Arc::new(eid_service),
+            _marketplace_service: Arc::new(marketplace_service),
         };
 
         let router = axum::Router::new()
