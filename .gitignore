@@ -10,8 +10,13 @@ pnpm-debug.log*
 .vscode/
 
 # Rust
-/target/
-**/*.rs.bk
+.debug/
+target/
+.cargo/
+.dockerignore
+.env
+test/
+*.tgz
 
 # Python (if you have scripts)
 __pycache__/
