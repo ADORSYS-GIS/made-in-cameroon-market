@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Backend Check
 
 on:
   merge_group:
