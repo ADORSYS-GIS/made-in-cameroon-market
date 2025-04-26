@@ -46,7 +46,7 @@ jobs:
         run: cargo build --release
 
       - name: Upload Backend Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-release
           path: backend/target/release/made-in-cameroon-market
