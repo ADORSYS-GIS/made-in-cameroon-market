@@ -9,10 +9,6 @@ pnpm-debug.log*
 .vite/
 .vscode/
 
-# Rust
-/target/
-**/*.rs.bk
-
 # Python (if you have scripts)
 __pycache__/
 *.py[cod]
