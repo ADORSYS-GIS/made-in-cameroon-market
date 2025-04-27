@@ -30,7 +30,7 @@ async fn main() -> std::io::Result<()> {
     db::init_db(&db_pool).await.expect("Database initialization failed");
 
     // App configuration
-    log::info!("Starting server at http://localhost:8080");
+    log::info!("Starting server at http://localhost:8000");
     HttpServer::new(move || {
         let cors = Cors::default()
             .allow_any_origin()
@@ -45,7 +45,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(config::Config::from_env()))
             .configure(routes::configure)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", 8000))?
     .run()
     .await
 }
