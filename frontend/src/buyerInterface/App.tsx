@@ -1,10 +1,10 @@
 // App.tsx
 import { Routes, Route } from 'react-router-dom';
-import { CartProvider } from './buyerInterface/context/CartContext';
-import { Header } from './buyerInterface/components/Header';
-import { CartDrawer } from './buyerInterface/components/Cart/CartDrawer';
-import { Products } from './buyerInterface/pages/Products';
-import { Checkout } from './buyerInterface/pages/Checkout.tsx';
+import { CartProvider } from './context/CartContext';
+import { Header } from './components/Header';
+import { CartDrawer } from './components/Cart/CartDrawer';
+import { Products } from './pages/Products';
+import { Checkout } from './pages/Checkout';
 
 export const App = () => (
   <CartProvider>
