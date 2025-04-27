@@ -1,5 +1,6 @@
-
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 export default {
 	darkMode: ["class"],
@@ -59,12 +60,25 @@ export default {
 					'blue-dark': '#003B73',
 					red: '#EF3340',
 					yellow: '#FFCD00',
+					'yellow-light': '#FFE066',
+					'yellow-dark': '#F1A208',
+					green: '#2E7D32',
+					'green-light': '#4CAF50',
+					'green-dark': '#1B5E20',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				sm: 'calc(var(--radius) - 4px)',
+				xl: '1rem',
+				'2xl': '1.5rem',
+				'3xl': '2rem',
+			},
+			boxShadow: {
+				'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+				'hard': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+				'glow': '0 0 15px rgba(0, 85, 164, 0.2)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -82,13 +96,45 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'pulse-slow': 'pulse-slow 2s ease-in-out infinite'
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						maxWidth: '65ch',
+						color: 'inherit',
+						a: {
+							color: 'inherit',
+							textDecoration: 'none',
+							fontWeight: '500',
+						},
+						strong: {
+							color: 'inherit',
+						},
+						code: {
+							color: 'inherit',
+						},
+					},
+				},
+			},
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		animate,
+		typography,
+	],
 } satisfies Config;
