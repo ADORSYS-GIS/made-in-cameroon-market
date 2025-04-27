@@ -1,61 +1,173 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-// Define a type that extends Navigator with connection types
-interface NavigatorConnection extends Navigator {
+export type ConnectionType = "slow-2g" | "2g" | "3g" | "4g" | "unknown";
+export type ConnectionStatus = "online" | "offline" | "limited";
+
+export interface NetworkStatus {
+  isOnline: boolean;
+  connectionType: ConnectionType;
+  connectionStatus: ConnectionStatus;
+  downlink: number | null; // Speed in Mbps
+  rtt: number | null; // Round trip time in ms
+  saveData: boolean; // Data saver mode
+}
+
+// Extend Navigator interface to include connection
+interface NavigatorNetwork extends Navigator {
   connection?: NetworkInformation;
-  mozConnection?: NetworkInformation;
-  webkitConnection?: NetworkInformation;
 }
 
 interface NetworkInformation extends EventTarget {
-  readonly effectiveType?: "slow-2g" | "2g" | "3g" | "4g";
+  effectiveType: ConnectionType;
+  downlink: number;
+  rtt: number;
+  saveData: boolean;
   addEventListener(
-    type: "change",
+    type: string,
     listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
   ): void;
   removeEventListener(
-    type: "change",
+    type: string,
     listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
   ): void;
 }
 
-// Now type navigator properly without 'any'
-const getConnection = (): NetworkInformation | undefined => {
-  const nav = navigator as NavigatorConnection;
-  return nav.connection ?? nav.mozConnection ?? nav.webkitConnection;
-};
-
-export function useNetworkStatus() {
-  const [online, setOnline] = useState<boolean>(navigator.onLine);
-  const [effectiveType, setEffectiveType] = useState<string>(
-    getConnection()?.effectiveType ?? "4g",
-  );
+export function useNetworkStatus(): NetworkStatus {
+  const [status, setStatus] = useState<NetworkStatus>({
+    isOnline: navigator.onLine,
+    connectionType: getEffectiveConnectionType(),
+    connectionStatus: navigator.onLine ? "online" : "offline",
+    downlink: getDownlink(),
+    rtt: getRTT(),
+    saveData: getSaveDataMode(),
+  });
 
   useEffect(() => {
-    const onOnline = () => setOnline(true);
-    const onOffline = () => setOnline(false);
-
-    const connection = getConnection();
-
-    const updateConnection = () => {
-      if (connection?.effectiveType) {
-        setEffectiveType(connection.effectiveType);
-      }
+    const handleOnline = () => {
+      setStatus((prev) => ({
+        ...prev,
+        isOnline: true,
+        connectionStatus: determineConnectionStatus(
+          true,
+          getEffectiveConnectionType(),
+        ),
+      }));
     };
 
-    window.addEventListener("online", onOnline);
-    window.addEventListener("offline", onOffline);
+    const handleOffline = () => {
+      setStatus((prev) => ({
+        ...prev,
+        isOnline: false,
+        connectionStatus: "offline",
+      }));
+    };
 
-    if (connection) {
-      connection.addEventListener("change", updateConnection);
+    const handleConnectionChange = () => {
+      const connectionType = getEffectiveConnectionType();
+      setStatus((prev) => ({
+        ...prev,
+        connectionType,
+        downlink: getDownlink(),
+        rtt: getRTT(),
+        saveData: getSaveDataMode(),
+        connectionStatus: determineConnectionStatus(
+          navigator.onLine,
+          connectionType,
+        ),
+      }));
+    };
+
+    // Listen for online/offline events
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Listen for connection changes if available
+    const nav = navigator as NavigatorNetwork;
+    if (nav.connection) {
+      nav.connection.addEventListener("change", handleConnectionChange);
     }
 
+    // Check periodically for slow connections
+    const intervalId = setInterval(() => {
+      if (navigator.onLine) {
+        // Simple ping to check real connectivity
+        fetch("/api/ping", {
+          method: "HEAD",
+          cache: "no-cache",
+          headers: { "Cache-Control": "no-cache" },
+        })
+          .then(() => {
+            setStatus((prev) => ({
+              ...prev,
+              connectionStatus: determineConnectionStatus(
+                true,
+                prev.connectionType,
+              ),
+            }));
+          })
+          .catch(() => {
+            setStatus((prev) => ({
+              ...prev,
+              connectionStatus: "limited",
+            }));
+          });
+      }
+    }, 30000); // Check every 30 seconds
+
     return () => {
-      window.removeEventListener("online", onOnline);
-      window.removeEventListener("offline", onOffline);
-      connection?.removeEventListener("change", updateConnection);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+      if (nav.connection) {
+        nav.connection.removeEventListener("change", handleConnectionChange);
+      }
+      clearInterval(intervalId);
     };
   }, []);
 
-  return { online, effectiveType };
+  return status;
+}
+
+// Helper functions
+function getEffectiveConnectionType(): ConnectionType {
+  const nav = navigator as NavigatorNetwork;
+  if (nav.connection && "effectiveType" in nav.connection) {
+    return nav.connection.effectiveType;
+  }
+  return "unknown";
+}
+
+function getDownlink(): number | null {
+  const nav = navigator as NavigatorNetwork;
+  if (nav.connection && "downlink" in nav.connection) {
+    return nav.connection.downlink;
+  }
+  return null;
+}
+
+function getRTT(): number | null {
+  const nav = navigator as NavigatorNetwork;
+  if (nav.connection && "rtt" in nav.connection) {
+    return nav.connection.rtt;
+  }
+  return null;
+}
+
+function getSaveDataMode(): boolean {
+  const nav = navigator as NavigatorNetwork;
+  if (nav.connection && "saveData" in nav.connection) {
+    return nav.connection.saveData;
+  }
+  return false;
+}
+
+function determineConnectionStatus(
+  isOnline: boolean,
+  connectionType: ConnectionType,
+): ConnectionStatus {
+  if (!isOnline) return "offline";
+  return connectionType === "slow-2g" || connectionType === "2g"
+    ? "limited"
+    : "online";
 }
